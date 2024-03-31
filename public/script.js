@@ -10,32 +10,29 @@ function rand_col() {
 }
 
 // Draw hexagon with radius (define size)
-function draw_hexagon(r) {
+function draw_hexagon(r, x, y) {
   ctx.fillStyle = rand_col();
   ctx.beginPath();
   for (var i = 0; i < 6; i++) {
-    ctx.lineTo(
-      cnv.width / 2 + r * Math.cos(a * i),
-      cnv.height / 2 + r * Math.sin(a * i)
-    );
+    ctx.lineTo(x + r * Math.cos(a * i), y + r * Math.sin(a * i));
   }
   ctx.closePath();
   ctx.fill();
 }
 
-function draw_hexagons(start_radius) {
-  draw_hexagon(start_radius);
+function draw_hexagons(start_radius, start_x, start_y) {
+  draw_hexagon(start_radius, start_x, start_y);
 
   if (start_radius > 0) {
-    draw_hexagons(start_radius - 20);
+    draw_hexagons(start_radius - 20, start_x + 5, start_y - 8);
   }
 }
 
-draw_hexagons(cnv.height);
+draw_hexagons(cnv.height, cnv.width / 2, cnv.height / 2);
 
 window.onresize = () => {
   // When screen resize, redraw the hexagons based on updated screen size
   cnv.width = innerWidth;
   cnv.height = innerHeight;
-  draw_hexagons(cnv.height);
+  draw_hexagons(cnv.height, cnv.width / 2, cnv.height / 2);
 };
