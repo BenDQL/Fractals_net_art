@@ -1,22 +1,41 @@
-document.body.style.margin   = 0
-document.body.style.overflow = `hidden`
+const cnv = document.getElementById(`recursive_squares`);
+cnv.width = cnv.parentNode.scrollWidth;
+cnv.height = cnv.width;
+const a = (2 * Math.PI) / 6; // Use for drawing hexagon
 
-const cnv = document.getElementById (`cnv_element`)
-cnv.width = innerWidth
-cnv.height = innerHeight
+const ctx = cnv.getContext(`2d`);
 
-const ctx = cnv.getContext (`2d`)
-
-const draw_frame = () => {
-   ctx.fillStyle = `turquoise`
-   ctx.fillRect (0, 0, innerWidth, innerHeight)
-
-   requestAnimationFrame (draw_frame)
+function rand_col() {
+  return `hsl(${Math.random() * 360}, 100%, 66%)`;
 }
 
-draw_frame ()
+// Draw hexagon with radius (define size)
+function draw_hexagon(r) {
+  ctx.fillStyle = rand_col();
+  ctx.beginPath();
+  for (var i = 0; i < 6; i++) {
+    ctx.lineTo(
+      cnv.width / 2 + r * Math.cos(a * i),
+      cnv.height / 2 + r * Math.sin(a * i)
+    );
+  }
+  ctx.closePath();
+  ctx.fill();
+}
+
+function draw_hexagons(start_radius) {
+  draw_hexagon(start_radius);
+
+  if (start_radius > 0) {
+    draw_hexagons(start_radius - 20);
+  }
+}
+
+draw_hexagons(cnv.height);
 
 window.onresize = () => {
-   cnv.width = innerWidth
-   cnv.height = innerHeight   
-}
+  // When screen resize, redraw the hexagons based on updated screen size
+  cnv.width = innerWidth;
+  cnv.height = innerHeight;
+  draw_hexagons(cnv.height);
+};
