@@ -1,4 +1,4 @@
-const cnv = document.getElementById(`recursive_squares`);
+const cnv = document.getElementById(`recursive_hexagons`);
 cnv.width = cnv.parentNode.scrollWidth;
 cnv.height = cnv.width;
 const a = (2 * Math.PI) / 6; // Use for drawing hexagon
