@@ -28,11 +28,11 @@ function draw_hexagons(start_radius, start_x, start_y) {
   }
 }
 
-draw_hexagons(cnv.height, cnv.width / 2, cnv.height / 2);
+draw_hexagons(cnv.width / 2, cnv.width / 2, cnv.height / 2);
 
 window.onresize = () => {
   // When screen resize, redraw the hexagons based on updated screen size
   cnv.width = innerWidth;
   cnv.height = innerHeight;
-  draw_hexagons(cnv.height, cnv.width / 2, cnv.height / 2);
+  draw_hexagons(cnv.width / 2, cnv.width / 2, cnv.height / 2);
 };
